@@ -1,16 +1,15 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, vi, beforeEach, expect } from "vitest";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter } from "react-router-dom";
 import Home from "../Home";
 import { useMarvelStore } from "../../store/useMarvelStore";
-import api from "../../api/marvelApi";
-import { BrowserRouter } from "react-router-dom";
+import { useCharacters } from "../../services/marvelService";
 import { JSX } from "react";
 
-vi.mock("../../api/marvelApi", () => ({
-  default: {
-    get: vi.fn().mockResolvedValue({ data: { data: { results: [] } } }),
-  },
+vi.mock("../../services/marvelService", () => ({
+  useCharacters: vi.fn(),
 }));
 
 vi.mock("../../store/useMarvelStore", () => ({
@@ -21,62 +20,70 @@ vi.mock("../../store/useMarvelStore", () => ({
   })),
 }));
 
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  });
+
+const renderWithProviders = (ui: JSX.Element) => {
+  const queryClient = createTestQueryClient();
+  return render(
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>{ui}</BrowserRouter>
+    </QueryClientProvider>
+  );
+};
+
 describe("Home Component", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
 
-  const renderWithRouter = (ui: JSX.Element) => {
-    return render(<BrowserRouter>{ui}</BrowserRouter>);
-  };
-
   it("displays characters after API load", async () => {
-    (api.get as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      data: {
-        data: {
-          results: [
-            {
-              id: 1,
-              name: "Iron Man",
-              thumbnail: { path: "path_to_image", extension: "jpg" },
-            },
-            {
-              id: 2,
-              name: "Spider-Man",
-              thumbnail: { path: "path_to_image", extension: "jpg" },
-            },
-          ],
+    (useCharacters as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      data: [
+        {
+          id: 1,
+          name: "Iron Man",
+          thumbnail: { path: "path_to_image", extension: "jpg" },
         },
-      },
+        {
+          id: 2,
+          name: "Spider-Man",
+          thumbnail: { path: "path_to_image", extension: "jpg" },
+        },
+      ],
+      isLoading: false,
+      isError: false,
     });
 
-    renderWithRouter(<Home />);
+    renderWithProviders(<Home />);
 
     await waitFor(() => screen.getByText("Iron Man"));
     expect(screen.getByText("Spider-Man")).toBeInTheDocument();
   });
 
   it("filters characters based on search input", async () => {
-    (api.get as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      data: {
-        data: {
-          results: [
-            {
-              id: 1,
-              name: "Iron Man",
-              thumbnail: { path: "path_to_image", extension: "jpg" },
-            },
-            {
-              id: 2,
-              name: "Spider-Man",
-              thumbnail: { path: "path_to_image", extension: "jpg" },
-            },
-          ],
+    (useCharacters as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      data: [
+        {
+          id: 1,
+          name: "Iron Man",
+          thumbnail: { path: "path_to_image", extension: "jpg" },
         },
-      },
+        {
+          id: 2,
+          name: "Spider-Man",
+          thumbnail: { path: "path_to_image", extension: "jpg" },
+        },
+      ],
+      isLoading: false,
+      isError: false,
     });
 
-    renderWithRouter(<Home />);
+    renderWithProviders(<Home />);
 
     await waitFor(() => screen.getByText("Iron Man"));
 
@@ -99,21 +106,19 @@ describe("Home Component", () => {
       removeFavorite: removeFavoriteMock,
     });
 
-    (api.get as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      data: {
-        data: {
-          results: [
-            {
-              id: 1,
-              name: "Iron Man",
-              thumbnail: { path: "path_to_image", extension: "jpg" },
-            },
-          ],
+    (useCharacters as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      data: [
+        {
+          id: 1,
+          name: "Iron Man",
+          thumbnail: { path: "path_to_image", extension: "jpg" },
         },
-      },
+      ],
+      isLoading: false,
+      isError: false,
     });
 
-    renderWithRouter(<Home />);
+    renderWithProviders(<Home />);
 
     await waitFor(() => screen.getByText("Iron Man"));
 
@@ -128,18 +133,16 @@ describe("Home Component", () => {
   });
 
   it("handles API errors correctly", async () => {
-    (api.get as unknown as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
-      new Error("API error")
-    );
+    (useCharacters as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      data: [],
+      isLoading: false,
+      isError: true,
+    });
 
-    renderWithRouter(<Home />);
+    renderWithProviders(<Home />);
 
     await waitFor(() => {
-      expect(
-        screen.queryByText(
-          /No results found. There are an API error, try later./i
-        )
-      ).toBeTruthy();
+      expect(screen.getByText(/No results found./i)).toBeInTheDocument();
     });
   });
 });

@@ -11,12 +11,14 @@ This project is a React + TypeScript web application that fetches and displays i
 - **Responsive Design**: Fully compatible with mobile and desktop.
 - **API Integration**: Fetches data from the [Marvel API](https://developer.marvel.com/).
 - **State Management**: Uses Zustand for efficient state handling.
+- **Data Fetching & Caching**: Utilizes React Query for optimized API calls.
 - **Testing**: Comprehensive unit and integration tests using Vitest and React Testing Library.
 
 ## Technologies Used
 - **React** (v18+)
 - **TypeScript**
 - **Zustand** (state management)
+- **React Query** (API caching and data fetching)
 - **React Router** (navigation)
 - **CSS** (custom styles, no UI component libraries)
 - **Vitest & React Testing Library** (testing framework)
@@ -72,7 +74,8 @@ This serves the built app locally to test the production mode.
 ```
 marvel-app/
 │── src/
-│   ├── api/                # API service for data fetching
+│   ├── api/                # API configuration and setup
+│   ├── services/           # API service functions using React Query
 │   ├── components/         # Reusable UI Components
 │   ├── pages/              # Page views for different routes
 │   ├── store/              # Zustand state management
@@ -105,8 +108,6 @@ yarn build && yarn preview
 vercel deploy
 ```
 
-
 ## Contact
 For any questions, reach out to:
 - **Marta Pretel Albarrán**: marpreal97@gmail.com
-
