@@ -37,17 +37,16 @@ vi.mock("../../store/useMarvelStore", () => ({
 const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
-      queries: { retry: false, gcTime: 0 }
+      queries: { retry: false, gcTime: 0 },
     },
   });
-
 
 const renderWithProviders = (ui: JSX.Element) => {
   const queryClient = createTestQueryClient();
   return render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>{ui}</BrowserRouter>
-    </QueryClientProvider>
+    </QueryClientProvider>,
   );
 };
 
@@ -75,17 +74,17 @@ describe("Character Component", () => {
         data: [],
         isLoading: false,
         isError: true,
-      }
+      },
     );
 
     renderWithProviders(<Character />);
 
     await waitFor(() =>
-      expect(screen.getByText("No character found")).toBeInTheDocument()
+      expect(screen.getByText("No character found")).toBeInTheDocument(),
     );
     expect(screen.getByAltText("No character found")).toHaveAttribute(
       "src",
-      noResultsImage
+      noResultsImage,
     );
   });
 
@@ -101,13 +100,13 @@ describe("Character Component", () => {
         data: [],
         isLoading: false,
         isError: true,
-      }
+      },
     );
 
     renderWithProviders(<Character />);
 
     await waitFor(() =>
-      expect(screen.getByText("No character found")).toBeInTheDocument()
+      expect(screen.getByText("No character found")).toBeInTheDocument(),
     );
   });
 });

@@ -12,7 +12,11 @@ const renderWithRouter = (ui: JSX.Element) => {
 describe("Navbar Component", () => {
   it("renders correctly", () => {
     renderWithRouter(
-      <Navbar favoritesCount={0} toggleShowFavorites={() => {}} resetShowFavorites={() => {}} />
+      <Navbar
+        favoritesCount={0}
+        toggleShowFavorites={() => {}}
+        resetShowFavorites={() => {}}
+      />,
     );
 
     expect(screen.getByAltText("Marvel Logo")).toBeInTheDocument();
@@ -22,7 +26,11 @@ describe("Navbar Component", () => {
   it("calls resetShowFavorites when Marvel logo is clicked", () => {
     const resetShowFavoritesMock = vi.fn();
     renderWithRouter(
-      <Navbar favoritesCount={0} toggleShowFavorites={() => {}} resetShowFavorites={resetShowFavoritesMock} />
+      <Navbar
+        favoritesCount={0}
+        toggleShowFavorites={() => {}}
+        resetShowFavorites={resetShowFavoritesMock}
+      />,
     );
 
     const logo = screen.getByAltText("Marvel Logo");
@@ -34,7 +42,11 @@ describe("Navbar Component", () => {
   it("calls toggleShowFavorites when favorites icon is clicked", () => {
     const toggleShowFavoritesMock = vi.fn();
     renderWithRouter(
-      <Navbar favoritesCount={0} toggleShowFavorites={toggleShowFavoritesMock} resetShowFavorites={() => {}} />
+      <Navbar
+        favoritesCount={0}
+        toggleShowFavorites={toggleShowFavoritesMock}
+        resetShowFavorites={() => {}}
+      />,
     );
 
     const favoritesIcon = screen.getByAltText("Favorites");
@@ -45,7 +57,11 @@ describe("Navbar Component", () => {
 
   it("displays the favorites count when favorites exist", () => {
     renderWithRouter(
-      <Navbar favoritesCount={5} toggleShowFavorites={() => {}} resetShowFavorites={() => {}} />
+      <Navbar
+        favoritesCount={5}
+        toggleShowFavorites={() => {}}
+        resetShowFavorites={() => {}}
+      />,
     );
 
     expect(screen.getByText("5")).toBeInTheDocument();
@@ -53,7 +69,11 @@ describe("Navbar Component", () => {
 
   it("does not show favorites count when there are no favorites", () => {
     renderWithRouter(
-      <Navbar favoritesCount={0} toggleShowFavorites={() => {}} resetShowFavorites={() => {}} />
+      <Navbar
+        favoritesCount={0}
+        toggleShowFavorites={() => {}}
+        resetShowFavorites={() => {}}
+      />,
     );
 
     expect(screen.queryByText("0")).not.toBeInTheDocument();

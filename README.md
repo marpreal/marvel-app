@@ -1,9 +1,11 @@
 # Marvel App
 
 ## Introduction
+
 This project is a React + TypeScript web application that fetches and displays information about Marvel characters. It features a listing page, detailed character view, search functionality, a favorites system, and multilingual support.
 
 ## Features
+
 - **Character Listing Page**: Displays the first 50 characters or the search results.
 - **Character Search**: Real-time filtering of characters.
 - **Favorites System**: Users can add/remove characters from favorites with persistent storage.
@@ -16,6 +18,7 @@ This project is a React + TypeScript web application that fetches and displays i
 - **Internationalization (i18n)**: Supports multiple languages with automatic browser language detection.
 
 ## Technologies Used
+
 - **React** (v18+)
 - **TypeScript**
 - **Zustand** (state management)
@@ -29,11 +32,14 @@ This project is a React + TypeScript web application that fetches and displays i
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js **>= 18**
 - Yarn **(recommended, required for this project)**
 
 ### Installation
+
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/marpreal/marvel-app.git
    cd marvel-app
@@ -45,37 +51,47 @@ This project is a React + TypeScript web application that fetches and displays i
    ```
 
 ### Running the Development Server
+
 ```sh
 yarn dev
 ```
+
 The app will be available at `http://localhost:5173`.
 
 ### Running Tests
+
 ```sh
 yarn test
 ```
 
 ### Running Coverage Tests
+
 ```sh
 yarn test --coverage
 ```
 
 ### Building for Production
+
 ```sh
 yarn build
 ```
+
 This generates a production-ready build in the `dist/` directory.
 
 ### Running Production Build Locally
+
 ```sh
 yarn build && yarn preview
 ```
+
 This serves the built app locally to test the production mode.
 
 ## Internationalization (i18n)
+
 The app now supports **automatic language detection** and **manual language switching** using `react-i18next`. It defaults to English, but if the browser is set to Spanish, it switches automatically.
 
 ## Project Structure
+
 ```
 marvel-app/
 │── src/
@@ -99,22 +115,28 @@ marvel-app/
 ```
 
 ## API Usage
+
 The application uses the Marvel API:
+
 - **Base URL**: `http://gateway.marvel.com/v1/`
 - **API Key setup**: [Marvel API Documentation](https://developer.marvel.com/documentation/getting_started)
 
 ## Deployment
 
 ### Local Preview of Production Build
+
 ```sh
 yarn build && yarn preview
 ```
 
 ### Deployment to Vercel
+
 ```sh
 vercel deploy
 ```
 
 ## Contact
+
 For any questions, reach out to:
+
 - **Marta Pretel Albarrán**: marpreal97@gmail.com

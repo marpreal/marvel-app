@@ -14,7 +14,7 @@ const fetchCharacter = async (id: string): Promise<CharacterType> => {
 
 const fetchCharacterComics = async (id: string): Promise<Comic[]> => {
   const response = await api.get(
-    `/characters/${id}/comics?limit=20&orderBy=onsaleDate`
+    `/characters/${id}/comics?limit=20&orderBy=onsaleDate`,
   );
   return response.data.data.results;
 };
