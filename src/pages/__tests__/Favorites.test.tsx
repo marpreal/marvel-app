@@ -5,6 +5,13 @@ import Favorites from "../Favorites";
 import { BrowserRouter } from "react-router-dom";
 import { JSX } from "react";
 
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+    i18n: { changeLanguage: vi.fn() },
+  }),
+}));
+
 const renderWithRouter = (ui: JSX.Element) => {
   return render(<BrowserRouter>{ui}</BrowserRouter>);
 };
@@ -24,14 +31,22 @@ describe("Favorites Component", () => {
   it("displays message when no favorites are saved", () => {
     renderWithRouter(<Favorites />);
 
-    expect(screen.getByText("Favorites")).toBeInTheDocument();
-    expect(screen.getByText("You don’t have any favorite characters yet.")).toBeInTheDocument();
+    expect(screen.getByText("favorites.title")).toBeInTheDocument();
+    expect(screen.getByText("favorites.emptyMessage")).toBeInTheDocument();
   });
 
   it("loads favorites from localStorage and displays them", () => {
     const mockFavorites = [
-      { id: 1, name: "Iron Man", thumbnail: { path: "path_to_image", extension: "jpg" } },
-      { id: 2, name: "Spider-Man", thumbnail: { path: "path_to_image", extension: "jpg" } },
+      {
+        id: 1,
+        name: "Iron Man",
+        thumbnail: { path: "path_to_image", extension: "jpg" },
+      },
+      {
+        id: 2,
+        name: "Spider-Man",
+        thumbnail: { path: "path_to_image", extension: "jpg" },
+      },
     ];
 
     vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
@@ -40,7 +55,7 @@ describe("Favorites Component", () => {
 
     renderWithRouter(<Favorites />);
 
-    expect(screen.getByText("Favorites")).toBeInTheDocument();
+    expect(screen.getByText("favorites.title")).toBeInTheDocument();
     expect(screen.getByText("Iron Man")).toBeInTheDocument();
     expect(screen.getByText("Spider-Man")).toBeInTheDocument();
   });

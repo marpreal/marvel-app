@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import CharacterCard from "../components/CharacterCard";
 import { CharacterType } from "../types/global";
+import { useTranslation } from "react-i18next";
 
 function Favorites() {
+  const { t } = useTranslation();
   const [favorites, setFavorites] = useState<CharacterType[]>([]);
 
   useEffect(() => {
@@ -14,14 +16,20 @@ function Favorites() {
 
   return (
     <div className="favorites-container">
-      <h1>Favorites</h1>
+      <h1>{t("favorites.title")}</h1>
       <div className="character-grid">
         {favorites.length > 0 ? (
           favorites.map((char) => (
-            <CharacterCard key={char.id} character={char} loading={false} toggleFavorite={() => {}} favorites={favorites} />
+            <CharacterCard
+              key={char.id}
+              character={char}
+              loading={false}
+              toggleFavorite={() => {}}
+              favorites={favorites}
+            />
           ))
         ) : (
-          <p>You don’t have any favorite characters yet.</p>
+          <p>{t("favorites.emptyMessage")}</p>
         )}
       </div>
     </div>

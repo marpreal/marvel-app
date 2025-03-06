@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { HomeActions } from "./types";
-import { useMarvelStore } from "../store/useMarvelStore";
-import CharacterCard from "../components/CharacterCard";
-import SearchBar from "../components/SearchBar";
-import Navbar from "../components/Navbar";
 import "../styles/Home.css";
-import noResultsImage from "../assets/no-results.jpg";
 import { CharacterType } from "../types/global";
+import { HomeActions } from "./types";
 import { useCharacters } from "../services/marvelService";
+import { useMarvelStore } from "../store/useMarvelStore";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import CharacterCard from "../components/CharacterCard";
+import Navbar from "../components/Navbar";
+import noResultsImage from "../assets/no-results.jpg";
+import SearchBar from "../components/SearchBar";
 
 function Home() {
+  const { t } = useTranslation();
   const { data: characters = [], isLoading, isError } = useCharacters();
   const [search, setSearch] = useState<string>("");
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
@@ -65,10 +67,8 @@ function Home() {
           </div>
         ) : isError || displayedCharacters.length === 0 ? (
           <div className="no-results">
-            <img src={noResultsImage} alt="No results found" />
-            <p className="error-message">
-              No results found.
-            </p>
+            <img src={noResultsImage} alt={t("home.noResults")} />
+            <p className="error-message">{t("home.noResults")}</p>
           </div>
         ) : (
           <div className="character-grid">

@@ -7,8 +7,10 @@ import noResultsImage from "../assets/no-results.jpg";
 import "../styles/Character.css";
 import { useCharacterComics, useCharacter } from "../services/marvelService";
 import { SkeletonCharacter } from "../components/SkeletonCharacter";
+import { useTranslation } from "react-i18next";
 
 function Character() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { favorites, addFavorite, removeFavorite } = useMarvelStore();
 
@@ -84,8 +86,9 @@ function Character() {
             <div className="character-description">
               <p>
                 {noCharacter
-                  ? "Try later."
-                  : character.description || "Description coming soon..."}
+                  ? t("character.tryLater")
+                  : character.description ||
+                    t("character.descriptionComingSoon")}
               </p>
             </div>
           </div>
@@ -94,7 +97,7 @@ function Character() {
 
       {!noCharacter && (
         <section className="comics-section">
-          {comics && comics.length > 0 && <h2>COMICS</h2>}
+          {comics && comics.length > 0 && <h2>{t("character.comics")}</h2>}
           <div className="comics-list">
             {comics && comics.length > 0 ? (
               comics.map((comic) => (
@@ -116,7 +119,7 @@ function Character() {
                 </div>
               ))
             ) : (
-              <p>No comics available.</p>
+              <p>{t("character.noComics")}</p>
             )}
           </div>
         </section>

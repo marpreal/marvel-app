@@ -20,6 +20,13 @@ vi.mock("../../store/useMarvelStore", () => ({
   })),
 }));
 
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+    i18n: { changeLanguage: vi.fn() },
+  }),
+}));
+
 const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
@@ -142,7 +149,7 @@ describe("Home Component", () => {
     renderWithProviders(<Home />);
 
     await waitFor(() => {
-      expect(screen.getByText(/No results found./i)).toBeInTheDocument();
+      expect(screen.getByText("home.noResults")).toBeInTheDocument();
     });
   });
 });
