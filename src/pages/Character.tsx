@@ -63,7 +63,7 @@ function Character() {
                   className="favorite-button-character"
                   onClick={() => {
                     const isFavorite = favorites.some(
-                      (fav) => fav.id === character.id
+                      (fav) => fav.id === character.id,
                     );
                     if (isFavorite) {
                       removeFavorite(character.id);
@@ -112,7 +112,7 @@ function Character() {
                     <p className="comic-year">
                       {new Date(
                         comic.dates.find((d) => d.type === "onsaleDate")
-                          ?.date || ""
+                          ?.date || "",
                       ).getFullYear() || "N/A"}
                     </p>
                   </div>

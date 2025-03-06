@@ -39,7 +39,7 @@ const renderWithProviders = (ui: JSX.Element) => {
   return render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>{ui}</BrowserRouter>
-    </QueryClientProvider>
+    </QueryClientProvider>,
   );
 };
 

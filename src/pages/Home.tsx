@@ -37,7 +37,7 @@ function Home() {
   const displayedCharacters = showFavorites
     ? favorites
     : characters.filter((char: CharacterType) =>
-        char.name.toLowerCase().includes(search.toLowerCase())
+        char.name.toLowerCase().includes(search.toLowerCase()),
       );
 
   return (
