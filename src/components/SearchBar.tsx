@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { SearchBarProps } from "./types";
 import "../styles/SearchBar.css";
 
 function SearchBar({ onSearch, resultsCount }: SearchBarProps) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,12 +33,14 @@ function SearchBar({ onSearch, resultsCount }: SearchBarProps) {
         <input
           className="search-bar"
           type="text"
-          placeholder="SEARCH A CHARACTER..."
+          placeholder={t("searchBar.placeholder")}
           value={search}
           onChange={handleChange}
         />
       </div>
-      <p className="search-results">{resultsCount} RESULTS</p>
+      <p className="search-results">
+        {t("searchBar.results", { count: resultsCount })}
+      </p>
     </div>
   );
 }
