@@ -75,34 +75,6 @@ This serves the built app locally to test the production mode.
 ## Internationalization (i18n)
 The app now supports **automatic language detection** and **manual language switching** using `react-i18next`. It defaults to English, but if the browser is set to Spanish, it switches automatically.
 
-### **Adding a New Language**
-1. Add a new JSON file in the `src/locales/` folder (e.g., `fr.json` for French).
-2. Update `i18n.ts` to include the new language resource.
-3. Restart the app to apply changes.
-
-### **Manual Language Switching**
-To change the language manually:
-```tsx
-import { useTranslation } from "react-i18next";
-const { i18n } = useTranslation();
-i18n.changeLanguage("es"); // Switch to Spanish
-```
-
-### **Testing i18n in Vitest**
-If tests fail due to missing translations, mock `react-i18next`:
-```tsx
-vi.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key: string, options?: { count?: number }) =>
-      key === "searchBar.results" && options?.count !== undefined
-        ? f"{options.count} results"
-        : key,
-    i18n: { changeLanguage: vi.fn() },
-  }),
-}));
-```
-This ensures tests run without real translation dependencies.
-
 ## Project Structure
 ```
 marvel-app/
