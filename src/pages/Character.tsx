@@ -44,7 +44,15 @@ function Character() {
               />
             ) : (
               <img
-                src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                src={
+                  character.thumbnail.path.startsWith("http://")
+                    ? character.thumbnail.path.replace("http://", "https://") +
+                      "." +
+                      character.thumbnail.extension
+                    : character.thumbnail.path +
+                      "." +
+                      character.thumbnail.extension
+                }
                 alt={character.name}
                 className="character-image"
               />
@@ -103,10 +111,17 @@ function Character() {
               comics.map((comic) => (
                 <div key={comic.id} className="comic-card">
                   <img
-                    src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                    src={
+                      comic.thumbnail.path.startsWith("http://")
+                        ? comic.thumbnail.path.replace("http://", "https://") +
+                          "." +
+                          comic.thumbnail.extension
+                        : comic.thumbnail.path + "." + comic.thumbnail.extension
+                    }
                     alt={comic.title}
                     className="comic-image"
                   />
+
                   <div className="comic-info">
                     <p className="comic-title">{comic.title}</p>
                     <p className="comic-year">

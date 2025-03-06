@@ -41,10 +41,17 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
     >
       <div className="image-container">
         <img
-          src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+          src={
+            character.thumbnail.path.startsWith("http://")
+              ? character.thumbnail.path.replace("http://", "https://") +
+                "." +
+                character.thumbnail.extension
+              : character.thumbnail.path + "." + character.thumbnail.extension
+          }
           alt={character.name}
           onError={(e) => (e.currentTarget.src = "/fallback-image.png")}
         />
+
         <div className="red-line"></div>
       </div>
 
