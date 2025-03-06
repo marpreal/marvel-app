@@ -11,7 +11,6 @@ const api = axios.create({
   baseURL: baseApiUrl,
   headers: {
     "Content-Type": "application/json",
-    Referer: "https://marvel-app-rose.vercel.app",
   },
   params: {
     ts,
