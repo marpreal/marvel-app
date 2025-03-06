@@ -18,7 +18,7 @@ describe("SearchBar Component", () => {
     render(<SearchBar onSearch={() => {}} resultsCount={0} />);
 
     expect(
-      screen.getByPlaceholderText("searchBar.placeholder")
+      screen.getByPlaceholderText("searchBar.placeholder"),
     ).toBeInTheDocument();
     expect(screen.getByText("0 results")).toBeInTheDocument();
   });
@@ -27,7 +27,7 @@ describe("SearchBar Component", () => {
     render(<SearchBar onSearch={() => {}} resultsCount={0} />);
 
     const input = screen.getByPlaceholderText(
-      "searchBar.placeholder"
+      "searchBar.placeholder",
     ) as HTMLInputElement;
     fireEvent.change(input, { target: { value: "Spider-Man" } });
 

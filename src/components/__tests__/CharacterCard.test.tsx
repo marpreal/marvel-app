@@ -44,7 +44,7 @@ const renderWithRouter = (ui: JSX.Element) => {
 describe("CharacterCard Component", () => {
   it("renders skeleton when loading", () => {
     renderWithRouter(
-      <CharacterCard loading={true} toggleFavorite={() => {}} favorites={[]} />
+      <CharacterCard loading={true} toggleFavorite={() => {}} favorites={[]} />,
     );
     expect(screen.getAllByText("").length).toBeGreaterThan(0);
   });
@@ -55,12 +55,12 @@ describe("CharacterCard Component", () => {
         character={mockCharacter}
         toggleFavorite={() => {}}
         favorites={[]}
-      />
+      />,
     );
     expect(screen.getByText("Iron Man")).toBeInTheDocument();
     expect(screen.getByAltText("Iron Man")).toHaveAttribute(
       "src",
-      expect.stringContaining("path_to_image.jpg")
+      expect.stringContaining("path_to_image.jpg"),
     );
   });
 
@@ -70,7 +70,7 @@ describe("CharacterCard Component", () => {
         character={mockCharacter}
         toggleFavorite={() => {}}
         favorites={[]}
-      />
+      />,
     );
     fireEvent.click(screen.getByText("Iron Man"));
     expect(mockNavigate).toHaveBeenCalledWith("/character/1009368");
@@ -83,7 +83,7 @@ describe("CharacterCard Component", () => {
         character={mockCharacter}
         toggleFavorite={toggleFavoriteMock}
         favorites={[]}
-      />
+      />,
     );
     const favButton = screen.getByRole("button");
     fireEvent.click(favButton);
@@ -96,11 +96,11 @@ describe("CharacterCard Component", () => {
         character={mockCharacter}
         toggleFavorite={() => {}}
         favorites={[mockCharacter]}
-      />
+      />,
     );
     expect(screen.getByAltText("Favorite Icon")).toHaveAttribute(
       "src",
-      expect.stringContaining("state-default.png")
+      expect.stringContaining("state-default.png"),
     );
   });
 
@@ -110,11 +110,11 @@ describe("CharacterCard Component", () => {
         character={mockCharacter}
         toggleFavorite={() => {}}
         favorites={[]}
-      />
+      />,
     );
     expect(screen.getByAltText("Favorite Icon")).toHaveAttribute(
       "src",
-      expect.stringContaining("state-unselected.png")
+      expect.stringContaining("state-unselected.png"),
     );
   });
 
@@ -124,7 +124,7 @@ describe("CharacterCard Component", () => {
         character={mockCharacter}
         toggleFavorite={() => {}}
         favorites={[]}
-      />
+      />,
     );
     const favButton = screen.getByRole("button");
     fireEvent.click(favButton);

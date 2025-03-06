@@ -1,21 +1,20 @@
 {
-    "home": {
-      "noResults": "No results found."
-    },
-    "favorites": {
-      "title": "Favorites",
-      "emptyMessage": "You don’t have any favorite characters yet."
-    },
-    "character": {
-      "noCharacterFound": "No character found",
-      "tryLater": "Try later.",
-      "descriptionComingSoon": "Description coming soon...",
-      "comics": "COMICS",
-      "noComics": "No comics available."
-    },
-    "searchBar": {
-      "placeholder": "Busca un personaje...",
-      "results": "{{count}} resultados"
-    }
+  "home": {
+    "noResults": "No results found."
+  },
+  "favorites": {
+    "title": "Favorites",
+    "emptyMessage": "You don’t have any favorite characters yet."
+  },
+  "character": {
+    "noCharacterFound": "No character found",
+    "tryLater": "Try later.",
+    "descriptionComingSoon": "Description coming soon...",
+    "comics": "COMICS",
+    "noComics": "No comics available."
+  },
+  "searchBar": {
+    "placeholder": "Busca un personaje...",
+    "results": "{{count}} resultados"
   }
-  
+}
