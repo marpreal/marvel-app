@@ -1,5 +1,7 @@
 # Marvel App
 
+[Marvel App Online](https://marvel-app-rose.vercel.app/)
+
 ## Introduction
 
 This project is a React + TypeScript web application that fetches and displays information about Marvel characters. It features a listing page, detailed character view, search functionality, a favorites system, and multilingual support.
